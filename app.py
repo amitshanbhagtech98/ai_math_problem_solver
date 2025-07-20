@@ -14,6 +14,8 @@ The app can:
 """
 
 import streamlit as st
+import os
+from dotenv import load_dotenv
 from langchain_groq import ChatGroq  # Groq's language model integration
 from langchain.chains import LLMMathChain, LLMChain  # Chain components for logic flow
 from langchain.prompts import PromptTemplate  # Template for structured prompts
@@ -21,6 +23,13 @@ from langchain_community.utilities import WikipediaAPIWrapper  # Wikipedia searc
 from langchain.agents.agent_types import AgentType  # Agent type definitions
 from langchain.agents import Tool, initialize_agent  # Agent and tool components
 from langchain.callbacks import StreamlitCallbackHandler  # Streamlit integration for callbacks
+
+load_dotenv()
+
+# Set up LangSmith tracking (for experiment management and tracing)
+os.environ['LANGSMITH_API_KEY'] = os.getenv('LANGSMITH_API_KEY')
+os.environ['LANGSMITH_TRACING'] = "true"
+os.environ['LANGSMITH_PROJECT'] = os.getenv('LANGSMITH_PROJECT')
 
 # Initialize the Streamlit application
 st.set_page_config(
